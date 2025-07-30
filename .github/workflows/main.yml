@@ -26,8 +26,7 @@ jobs:
       - name: Check src directory
         run: ls -la src || echo "src/ folder does not exist!"
 
-      - name:  Check sonar-scanner versio
-        Debug: Print config
+      - name: SonarQube Environment Variables
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
