@@ -23,6 +23,9 @@ jobs:
       - name: Setup SonarQube
         uses: warchant/setup-sonar-scanner@v7
 
+      - name: Check src directory
+        run: ls -la src || echo "src/ folder does not exist!"
+
       # Run sonar-scanner
       - name: SonarQube Scan
         run: |
