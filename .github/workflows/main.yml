@@ -27,8 +27,13 @@ jobs:
         run: |
           sonar-scanner \
             -X \
+            -Dsonar.verbose=true \
             -Dsonar.host.url=${{ secrets.SONAR_URL }} \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
             -Dsonar.sources="$GITHUB_WORKSPACE"
+            -Dsonar.java.binaries="$GITHUB_WORKSPACE/target/classes" \
+            -Dsonar.java.test.binaries="$GITHUB_WORKSPACE/target/test-classes" \
+            -Dsonar.java.test.libraries="$GITHUB_WORKSPACE/target/test-classes" \
+            -Dsonar.java.coveragePlugin=jacoco \
