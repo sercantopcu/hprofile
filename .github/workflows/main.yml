@@ -23,34 +23,15 @@ jobs:
       - name: Setup SonarQube
         uses: warchant/setup-sonar-scanner@v7
 
-      - name: Check src directory
-        run: ls -la src || echo "src/ folder does not exist!"
-
-      - name: SonarQube Environment Variables
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
-        run: |
-          echo "SONAR_HOST_URL=$SONAR_HOST_URL"
-          echo "SONAR_TOKEN=$SONAR_TOKEN"
-          echo "SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY"
-          echo "SONAR_ORGANIZATION=$SONAR_ORGANIZATION"
-
-
+      # Run sonar-scanner
       - name: SonarQube Scan
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-        run: |
-          sonar-scanner \
-            -X \
-            -Dsonar.verbose=true \
-            -Dsonar.host.url=$SONAR_HOST_URL \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.organization=$SONAR_ORGANIZATION \
-            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+        run: sonar-scanner
+            -Dsonar.host.url=${{ secrets.SONAR_URL }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.sources=src/
+            -Dsonar.junit.reportPaths=target/surefire-reports/
+            -Dsonar.jacoco.reportPaths=target/jacoco.exec
+            -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+            -Dsonar.java.binaries=target/classes/com/visualpathit/account
