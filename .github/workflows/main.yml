@@ -26,17 +26,18 @@ jobs:
       - name: Check src directory
         run: ls -la src || echo "src/ folder does not exist!"
 
-      - name: Debug: Print config
-        run: |
-          echo "SONAR_HOST_URL=$SONAR_HOST_URL"
-          echo "SONAR_TOKEN=$SONAR_TOKEN"
-          echo "SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY"
-          echo "SONAR_ORGANIZATION=$SONAR_ORGANIZATION"
+      - name:  Check sonar-scanner versio
+        Debug: Print config
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
           SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+        run: |
+          echo "SONAR_HOST_URL=$SONAR_HOST_URL"
+          echo "SONAR_TOKEN=$SONAR_TOKEN"
+          echo "SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY"
+          echo "SONAR_ORGANIZATION=$SONAR_ORGANIZATION"
 
 
       - name: SonarQube Scan
