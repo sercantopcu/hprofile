@@ -17,22 +17,23 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '11'
+          java-version: '17'
 
       # Setup sonar-scanner
       - name: Setup SonarQube
         uses: warchant/setup-sonar-scanner@v7
 
       - name: SonarQube Scan
-        run: sonar-scanner
-            -Dsonar.verbose=true
-            -Dsonar.host.url=${{ secrets.SONAR_URL }}
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.sources=src/
-            -Dsonar.junit.reportPaths=target/surefire-reports
-            -Dsonar.jacoco.reportPaths=target/jacoco.exec
-            -Dsonar.java.binaries="$GITHUB_WORKSPACE/target/classes"
+        run: |
+          sonar-scanner \
+            -X \
+            -Dsonar.verbose=true \
+            -Dsonar.host.url=${{ secrets.SONAR_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+            -Dsonar.sources=src \
+            -Dsonar.junit.reportPaths=target/surefire-reports \
+            -Dsonar.jacoco.reportPaths=target/jacoco.exec \
+            -Dsonar.java.binaries=target/classes \
             -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
-            -Dsonar.java.binaries=target/test-classes/com/visualpathit/account
