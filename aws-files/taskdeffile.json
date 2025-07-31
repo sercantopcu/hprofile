@@ -1,13 +1,13 @@
 {
-    "family": "vproappstagetask",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:657693420200:task-definition/githubactions-tdef:1",
     "containerDefinitions": [
         {
-            "name": "vproapp",
-            "image": "716657688884.dkr.ecr.us-east-2.amazonaws.com/actapp:latest",
+            "name": "githubactions",
+            "image": "657693420200.dkr.ecr.us-east-1.amazonaws.com/githubactions",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "vproapp-8080-tcp",
+                    "name": "githubactions-8080-tcp",
                     "containerPort": 8080,
                     "hostPort": 8080,
                     "protocol": "tcp",
@@ -23,17 +23,53 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
+                    "awslogs-group": "/ecs/githubactions-tdef",
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/vproappstagetask",
-                    "awslogs-region": "us-east-2",
+                    "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
                 "secretOptions": []
-            }
+            },
+            "systemControls": []
         }
     ],
-    "executionRoleArn": "arn:aws:iam::716657688884:role/ecsTaskExecutionRole",
+    "family": "githubactions-tdef",
+    "executionRoleArn": "arn:aws:iam::657693420200:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
+    "revision": 1,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
@@ -43,10 +79,13 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
+    "registeredAt": "2025-07-31T15:37:03.619Z",
+    "registeredBy": "arn:aws:iam::657693420200:user/sercan-practices",
+    "enableFaultInjection": false,
     "tags": [
         {
             "key": "Name",
-            "value": "vprofileappstagtaskdef"
+            "value": "githubactions-tdef"
         }
     ]
 }
